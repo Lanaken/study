@@ -1,44 +1,80 @@
 import java.util.*;
 
 class Vertex{
-    ArrayList vertexes = new ArrayList<Integer>();
-    String mark = "white";
-    int comp = -1;
-    int parent = 0;
-    int number;
+    private ArrayList vertexes = new ArrayList<Integer>();
+    private String mark = "white";
+    private int comp = -1;
+    private int parent = 0;
+    private int number;
     Vertex(int n){
         number = n;
+    }
+
+    public ArrayList getVertexes() {
+        return vertexes;
+    }
+
+    public String getMark() {
+        return mark;
+    }
+
+    public int getComp() {
+        return comp;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public int getParent() {
+        return parent;
+    }
+
+    public void setParent(int parent) {
+        this.parent = parent;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setComp(int comp) {
+        this.comp = comp;
     }
 }
 public class BridgeNum{
     private static int component = 0;
     public static void DFS1(Vertex[] V,LinkedList queue,int N){
         for (int i = 0;i < N;i++){
-            if (V[i].mark.equals("white")){
-                V[i].parent = -1;
+            if (V[i].getMark().equals("white")){
+                V[i].setParent(1);
                 component--;
                 VisitVertex1(V,queue,i);
             }
         }
     }
     public static void VisitVertex1(Vertex[] V,LinkedList queue,int v){
-        V[v].mark = "gray";
+        V[v].setMark("gray");
         queue.add(V[v]);
-        for (int i = 0;i < V[v].vertexes.size();i++){
-            if (V[(Integer)V[v].vertexes.get(i)].mark.equals("white") ){
-                V[(Integer)V[v].vertexes.get(i)].parent = v;
-                VisitVertex1(V,queue,(Integer)V[v].vertexes.get(i));
+        for (int i = 0;i < V[v].getVertexes().size();i++){
+            if (V[(Integer)V[v].getVertexes().get(i)].getMark().equals("white") ){
+                V[(Integer)V[v].getVertexes().get(i)].setParent(v);
+                VisitVertex1(V,queue,(Integer)V[v].getVertexes().get(i));
             }
         }
-        V[v].mark = "black";
+        V[v].setMark("black");
     }
 
     public static int DFS2(Vertex[] V, LinkedList queue){
         int c = 0;
         while (!queue.isEmpty()){
             Vertex A = (Vertex) queue.pop();
-            if (A.comp == -1){
-                VisitVertex2(V,A,c,A.number);
+            if (A.getComp() == -1){
+                VisitVertex2(V,A,c,A.getNumber());
                 c++;
             }
         }
@@ -46,10 +82,10 @@ public class BridgeNum{
     }
 
     public static void VisitVertex2(Vertex[] V,Vertex A,int c,int v ){
-        A.comp = c;
-        for (int i = 0;i < A.vertexes.size();i++){
-            if (V[(Integer)A.vertexes.get(i)].comp == -1 && V[(Integer)A.vertexes.get(i)].parent != v){
-                VisitVertex2(V,V[(Integer)A.vertexes.get(i)],c,(Integer)A.vertexes.get(i));
+        A.setComp(c);
+        for (int i = 0;i < A.getVertexes().size();i++){
+            if (V[(Integer)A.getVertexes().get(i)].getComp() == -1 && V[(Integer)A.getVertexes().get(i)].getParent() != v){
+                VisitVertex2(V,V[(Integer)A.getVertexes().get(i)],c,(Integer)A.getVertexes().get(i));
             }
         }
     }
@@ -64,8 +100,8 @@ public class BridgeNum{
         for (int i = 0;i < M;i++){
             int u = in.nextInt();
             int v = in.nextInt();
-            V[u].vertexes.add(v);
-            V[v].vertexes.add(u);
+            V[u].getVertexes().add(v);
+            V[v].getVertexes().add(u);
         }
         LinkedList queue = new LinkedList<Vertex>();
         DFS1(V,queue,N);
