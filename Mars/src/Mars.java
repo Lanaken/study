@@ -1,46 +1,6 @@
 import java.util.*;
-class Vertex {
-    private int number;
-    private ArrayList<Integer> badCosmonauts = new ArrayList<>();
-
-    Vertex(int n) {
-        number = n;
-    }
-
-    public void addBad(int person) {
-        badCosmonauts.add(person);
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public ArrayList<Integer> getBadCosmonauts() {
-        return badCosmonauts;
-    }
-}
 
 
-class Graph {
-    private ArrayList<Integer> firstGroup = new ArrayList<>();
-    private ArrayList<Integer> secondGroup = new ArrayList<>();
-
-    public ArrayList<Integer> getFirstGroup() {
-        return firstGroup;
-    }
-
-    public ArrayList<Integer> getSecondGroup() {
-        return secondGroup;
-    }
-
-    public void addToFirstGroup(int elem) {
-        firstGroup.add(elem);
-    }
-
-    public void addToSecondGroup(int elem) {
-        secondGroup.add(elem);
-    }
-}
 public class Mars {
     private static ArrayList<Integer> arrayList;
     private static ArrayList<Integer> groupOne = new ArrayList<>();
