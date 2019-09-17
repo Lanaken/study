@@ -9,7 +9,7 @@ import (
 
 func HomeRouterHandler(w http.ResponseWriter, r *http.Request) {
 	//	r.ParseForm() //анализ аргументов,
-	http.ServeFile(w, r, "index.html")
+	http.ServeFile(w, r, "main.html")
 
 	/*fmt.Println(r.Form) // ввод информации о форме на стороне сервера
 
@@ -43,13 +43,22 @@ func handler2(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Имя: %s Возраст: %s", name, age)
 }
 
+func mainHadler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "index.html")
+}
+
+func videoHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "lol.html")
+}
 func main() {
 
 	http.HandleFunc("/", HomeRouterHandler)
 	http.HandleFunc("/post", handler)
 	http.HandleFunc("/get", handler2)
+	http.HandleFunc("/form", mainHadler)
+	http.HandleFunc("/video", videoHandler)
 
-	err := http.ListenAndServe(":8081", nil) // задаем слушать порт
+	err := http.ListenAndServe(":8082", nil) // задаем слушать порт
 
 	if err != nil {
 
